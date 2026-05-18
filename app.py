@@ -56,8 +56,11 @@ def battery():
 
 @app.route("/download")
 def download():
-    cam.downloadLastMedia()
-    return render_template_string(HTML.replace("GoPro Controller</h1>", "GoPro Controller</h1><p style='color:#00cc66'>File downloaded!</p>"))
+    import os
+    download_path = "/sdcard/DCIM/GoPro"
+    os.makedirs(download_path, exist_ok=True)
+    cam.downloadLastMedia(download_path)
+    return render_template_string(HTML.replace("GoPro Controller</h1>", "GoPro Controller</h1><p style='color:#00cc66'>File downloaded to Gallery!</p>"))
 
 if __name__ == "__main__":
     print("Connecting to GoPro...")
